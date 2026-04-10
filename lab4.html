@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>JavaScript Interactive Website</title>
+
+<style>
+body{
+font-family:Arial;
+background:#f4f4f4;
+padding:20px;
+}
+
+section{
+background:white;
+padding:15px;
+margin-bottom:20px;
+border-radius:8px;
+box-shadow:0 0 5px grey;
+}
+
+button{
+padding:8px 12px;
+margin-top:5px;
+}
+
+#eventBtn:hover{
+cursor:pointer;
+}
+</style>
+
+</head>
+
+<body>
+
+<h1>JavaScript Interactive Features</h1>
+
+<!-- VARIABLES -->
+<section>
+<h2>1. Variables</h2>
+
+<p id="varOutput"></p>
+<button onclick="updateExperience()">Update Experience</button>
+
+</section>
+
+
+<!-- FUNCTIONS -->
+<section>
+<h2>2. Functions</h2>
+
+<button onclick="welcomeUser()">Show Welcome</button>
+<button onclick="changeMessage()">Change Message</button>
+
+<p id="msg"></p>
+
+</section>
+
+
+<!-- OBJECTS -->
+<section>
+<h2>3. Objects</h2>
+
+<p id="productInfo"></p>
+
+</section>
+
+
+<!-- METHODS -->
+<section>
+<h2>4. Methods</h2>
+
+<button onclick="seed.showPrice()">Check Price</button>
+
+<p id="methodOutput"></p>
+
+</section>
+
+
+<!-- POPUPS -->
+<section>
+<h2>5. Pop-up Boxes</h2>
+
+<button onclick="popupExample()">Register</button>
+
+<p id="popupResult"></p>
+
+</section>
+
+
+<!-- EVENTS -->
+<section>
+<h2>6. Events and Event Listeners</h2>
+
+<button id="eventBtn">Click Me</button>
+
+<br><br>
+
+<input type="text" id="nameInput" placeholder="Enter your name">
+
+<p id="eventOutput"></p>
+
+</section>
+
+
+<script>
+
+/* VARIABLES */
+
+const siteName="Interactive Website";
+let experience=1;
+
+console.log(siteName);
+console.log(experience);
+
+document.getElementById("varOutput").innerHTML=
+"Website: "+siteName+"<br>Experience: "+experience+" year";
+
+function updateExperience(){
+experience=experience+1;
+
+document.getElementById("varOutput").innerHTML=
+"Website: "+siteName+"<br>Experience: "+experience+" years";
+}
+
+
+/* FUNCTIONS */
+
+function welcomeUser(){
+document.getElementById("msg").innerHTML="Welcome to the website!";
+}
+
+const changeMessage=function(){
+document.getElementById("msg").innerHTML="Enjoy exploring the features.";
+}
+
+const arrowFunction=()=>{
+return "Learning JavaScript";
+}
+
+function calculatePrice(price,discount){
+return price-discount;
+}
+
+console.log(arrowFunction());
+console.log(calculatePrice(1000,200));
+
+
+/* OBJECT */
+
+let product={
+name:"Sample Product",
+price:500,
+availability:"In Stock"
+};
+
+console.log(product);
+
+document.getElementById("productInfo").innerHTML=
+product.name+" price is Rs."+product.price;
+
+/* dot notation */
+console.log(product.price);
+
+/* bracket notation */
+console.log(product["availability"]);
+
+/* update property */
+product.price=450;
+
+
+/* METHODS */
+
+let seed={
+name:"Product Item",
+price:600,
+
+showPrice:function(){
+document.getElementById("methodOutput").innerHTML=
+this.name+" price is Rs."+this.price;
+},
+
+updatePrice:function(newPrice){
+this.price=newPrice;
+}
+
+};
+
+
+/* POPUP BOXES */
+
+function popupExample(){
+
+alert("Welcome!");
+
+let userName=prompt("Enter your name");
+
+let confirmUser=confirm("Do you want to continue?");
+
+document.getElementById("popupResult").innerHTML=
+"Name: "+userName+"<br>Continue: "+confirmUser;
+
+}
+
+
+/* EVENTS */
+
+document.getElementById("eventBtn").addEventListener("click",function(){
+
+document.getElementById("eventOutput").innerHTML="Button clicked!";
+
+});
+
+document.getElementById("nameInput").addEventListener("input",function(){
+
+document.getElementById("eventOutput").innerHTML="Hello "+this.value;
+
+});
+
+document.getElementById("eventBtn").addEventListener("mouseover",function(){
+
+this.style.background="green";
+this.style.color="white";
+
+});
+
+</script>
+
+</body>
+</html>
