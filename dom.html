@@ -1,0 +1,111 @@
+<html>
+    <head>
+        <title>JQuery crash course: Selectors</title>
+        <script src="https://code.jquery.com/jquery-4.0.0.js" integrity="sha256-9fsHeVnKBvqh3FB2HYu7g2xseAZ5MlN6Kz/qnkASV8U=" crossorigin="anonymous"></script>
+        <style>
+            body{
+                font-size:17px;
+                font-family:arial;
+                background:#f4f4f4;
+                line-height:1.5em;
+            }
+            header{
+                background:#333;
+                color:#fff;
+                padding:20px;
+                text-align:center;
+                border-bottom:4px #000 solid;
+                margin-bottom:10px;
+            }
+            #container{
+                width:90%;
+                padding:10px;
+                margin:auto;
+            }
+            .myClass{
+                color:blue;
+                background:black;
+            }
+        
+        </style>
+    </head>
+    <body>
+        <header>
+            <h1>JQuery crash course|DOM manipulation</h1>
+        </header>
+        <div id="container">
+            <button id="btn1">Button 1</button>
+            <p class="para1">This is a paragraph</p>
+            <p class="para2">This is another paragraph</p>
+            <div id="myDiv">
+                <input type="text" id="newItem">
+                <ul id="list">
+                    <li>List Item 1</li>
+                    <li>List Item 2</li>
+                    <li>List Item 3</li>
+                    <li>List Item 4</li>
+                </ul>
+                <ul id="users"></ul>
+                <a href="http://google.com">Google</a>
+            </div>
+
+        </div>
+        <script>
+            $(document).ready(function(){
+                $('p.para1').css({color:'red',background:'lightgray'});//adding multiple css features
+                $('p.para2').addClass('myClass');//To add class to the paragraph
+                $('p.para2').removeClass('myClass'); //To remove class to the paragraph
+
+                $('#btn1').click(function(){
+                    $('p.para2').toggleClass('myClass');
+                });
+
+                //$('#myDiv').text('Hello world');//adding text to the div
+                //$('#myDiv').html('<h3>Hello world!</h3>');//adding html to the div
+                //alert($('#myDiv').text());//alerting the text of myDiv id
+
+                 $('ul').append('<li>Append list Item</li>');
+                 $('ul').prepend('<li>Append list Item</li>');
+
+                 //$('.para1').appendTo('.para2'); //para 1 is next to the para2
+                //$('.para1').prependTo('para2'); //para 1 is first to the para2
+
+                 $('ul').before('<h3>Hello</h3>'); //before ul not inside ul
+                 $('ul').after('<h3>World</h3>'); //after ul not inside ul
+
+                // $('ul').empty(); //just removes the inner elements of ul
+                // $('ul').detach(); //completely removes ul
+
+                //  $('a').attr('target','_blank');//adding the attribute
+                //  alert($('a').attr('href'));//alerting the required attribute
+                //  $('a').removeAttr('target');
+
+                // $('p').wrap('<h1>');//wraps all the p's into h1 seperately
+                 //$('p').wrapAll('<h1>');//wraps all the p's into one h1
+
+                    $('#newItem').keyup(function(e){
+                        var code=e.which;
+                        if(code==13)
+                        {
+                            e.preventDefault();
+                            $('ul').append('<li>'+e.target.value+'</li>');
+                        }
+                        
+                    });
+
+                    var myArr=['Rohit','Kohli','Dhoni','Bumrah'];
+                    $.each(myArr,function(i,val){
+                        //console.log(val);
+                        $('#users').append('<li>'+val+'</li>')//converting array into list
+                
+                    });
+                    
+                    var newArr=$('ul#list li').toArray();//convertin list to array
+                    console.log(newArr); 
+                    $.each(newArr,function(i,val){
+                        console.log(val.innerHTML);
+                    })               
+            })
+        </script>
+    </body>
+</html>
