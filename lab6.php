@@ -1,6 +1,6 @@
 <?php
 
-echo "<h2>PHP Variables, Scope & String Functions</h2>";
+echo "<h2>PHP Variables, Scope & string Functions</h2>";
 
 /* -----------------------------
 PART A : VARIABLES & DATATYPES
