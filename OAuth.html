@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Firebase Google Login (With Backend)</title>
+</head>
+<body>
+
+<h2>Firebase Google Login (With Backend)</h2>
+
+<button onclick="login()">Login with Google</button>
+<button onclick="logout()">Logout</button>
+
+<div id="user"></div>
+
+<script type="module">
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import { getAuth, GoogleAuthProvider, signInWithPopup, signOut } 
+from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+
+const firebaseConfig = {
+  apiKey: "",
+  authDomain: "rohitsharma-ddda2.firebaseapp.com",
+  projectId: "rohitsharma-ddda2",
+  appId: ""
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const provider = new GoogleAuthProvider();
+
+window.login = function() {
+
+  signInWithPopup(auth, provider)
+  .then(async (result) => {
+
+      const user = result.user;
+
+      // Get ID Token
+      const token = await user.getIdToken();
+
+      // Send token to backend
+      fetch("verify.php", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ token: token })
+      })
+      .then(res => res.json())
+      .then(data => {
+
+        if (data.status === "success") {
+
+          document.getElementById("user").innerHTML =
+            `<img src="${user.photoURL}" width="100"><br>
+             Name: ${user.displayName}<br>
+             Email: ${user.email}<br>
+             <b>Backend Verified ✔</b>`;
+
+        } else {
+          alert("Backend verification failed");
+        }
+
+      });
+
+  });
+
+}
+
+window.logout = function() {
+  signOut(auth);
+  document.getElementById("user").innerHTML = "";
+}
+
+</script>
+
+</body>
+</html
